@@ -1,6 +1,6 @@
 "use strict";
 
-let bookshelves = [[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false],[2,2,1,false]];
+let bookshelves = [[2,2,1,false]];
 const LIBRARY = document.querySelector(".library");
 const MODAL_ELEMENT = document.querySelector(".modal");
 const MAIN = document.querySelector(".main");
@@ -101,19 +101,33 @@ const showBooks = () => {
         P_DESCRIPTION.textContent = description;
 
         const P_NPAGES = document.createElement("p");
-        P_NPAGES.textContent = npages;
+        P_NPAGES.textContent = `Pages: ${npages}`;
+        P_NPAGES.className = "n-pages";
 
-        const INPUT_READED = document.createElement("p");
-        INPUT_READED.textContent = readed;
+        const INPUT_DIV = document.createElement("div");
+        INPUT_DIV.className = "form-check form-switch";
+        
+        const LABEL_READED = document.createElement("label");
+        LABEL_READED.className = "form-check-label";
+        LABEL_READED.textContent = "Readed";
+
+        const INPUT_READED = document.createElement("input");
+        INPUT_READED.className = "form-check-input";
+        INPUT_READED.id = "switch";
+        INPUT_READED.type = "checkbox";
+        INPUT_READED.role = "switch";
+        if(readed)INPUT_READED.setAttribute("checked", "true");
 
         const DIV = document.createElement("div");
-        DIV.className ="book col-3";
+        DIV.className ="book";
 
+        INPUT_DIV.appendChild(LABEL_READED);
+        INPUT_DIV.appendChild(INPUT_READED);
         DIV.appendChild(H3_TITLE);
         DIV.appendChild(H4_DESCRIPTION);
         DIV.appendChild(P_DESCRIPTION);
         DIV.appendChild(P_NPAGES);
-        DIV.appendChild(INPUT_READED);
+        DIV.appendChild(INPUT_DIV);
         LIBRARY.appendChild(DIV);
     }               
 }

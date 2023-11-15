@@ -6,9 +6,9 @@ body{
 
 .header{
     height: 75px;
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    box-shadow: 1px 0 5px 1px rgb(187, 187, 187);
+    background: rgb(21, 21, 21);
+    color: rgb(255, 255, 255);
+    box-shadow: 1px 0 5px 1px rgb(72, 72, 72);
 }
 
 .main-blur{
@@ -20,13 +20,27 @@ body{
 }
 
 .book{
+    position: relative;
     width: 300px;
     height: 350px;
     border-radius: 20px;
-    background: rgb(179, 179, 179);
+    background: white;
     margin: 15px;
-    border-top: 10px solid white;
+    border-top: 25px solid rgb(138, 165, 114);
     box-shadow: 1px 0 5px 1px rgb(187, 187, 187);
+    color: rgb(0, 0, 0);
+}
+
+.n-pages{
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+}
+
+.form-switch{
+    position: absolute;
+    bottom: 14px;
+    left: 15px;
 }
 
 .aside{
@@ -37,8 +51,8 @@ body{
     top: 125px;
     max-width: 500px;
     height: 200px;
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
+    background: rgb(21, 21, 21);
+    color: rgb(255, 255, 255);
     font-size: 20px;
     font-weight: 600;
     border-radius: 20px 0 0 20px;
@@ -52,35 +66,41 @@ body{
     top: 125px;
     width: 75px;
     height: 75px;
-    background: rgb(255, 255, 255);
+    background: rgb(21, 21, 21);
     border-radius: 20px 0 0 20px;
     box-shadow: 1px 0 5px 1px rgb(187, 187, 187);
     font-size: 0;
     transition: width 1.5s, height 0.7s;
 }
 
-.add-book-container{
+.info-button{
+    position: absolute;
+    top:20px;
+    right: 15px;
+    background: none;
+    border: none;
+    transition: transform 1.3s;
+}
+
+.add-book-btn{
+    position: absolute;
+    top: 5px;
+    right: 18px;
+    background: none;
+    border: none;
+}
+
+.add-book-btn-container{
     position: fixed;
     bottom: 125px;
     right: 0;
     width: 75px;
     height: 75px;
-    background: rgb(255, 255, 255);
+    background: rgb(21, 21, 21);
     border-radius: 20px 0 0 20px;
     box-shadow: 1px 0 5px 1px rgb(187, 187, 187);
-}
-
-.add-book-btn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px 0 0 20px;
-    background: none;
-    border: none;
-    font-size: 40px;
-    font-weight: 600;
+    color: rgb(255, 255, 255);
+    font-size: 35px;
 }
 
 .modal{
@@ -93,7 +113,7 @@ body{
     height: 450px;
     border-radius: 10px;
     color: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgb(130, 138, 199) 0%, rgb(96, 146, 211)100%);
+    background: rgb(206, 206, 206);
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.25);
     display: none;
 }
@@ -150,12 +170,3 @@ body{
 }
 
 
-.info-button{
-    position: absolute;
-    top:20px;
-    right: 15px;
-    background: none;
-    border: none;
-    transition-property:transform;
-    transition-duration: 1.3s;
-}

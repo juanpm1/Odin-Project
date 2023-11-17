@@ -1,6 +1,6 @@
 "use strict";
 
-let bookshelves = [[2,2,1,false]];
+let bookshelves = [[2,2,1,false],[2,2,1,true]];
 const LIBRARY = document.querySelector(".library");
 const MODAL_ELEMENT = document.querySelector(".modal");
 const MAIN = document.querySelector(".main");
@@ -17,12 +17,8 @@ const TOTAL_BOOKS_NOT_READED = document.querySelector(".books-not-readed");
 const INFO_BUTTON = document.querySelector(".info-button");
 const INFO_CONTAINER = document.querySelector(".aside-closed");
 
-let bookCount = 0;
-let bookReadedCount = 0;
-let bookNotReadedCount = 0;
 let infoClosed = true;
-
-INFO_BUTTON.addEventListener("click",()=>{
+const toggleInfo = () =>{
     if(infoClosed){
         INFO_BUTTON.style.transform = "rotate(180deg)";
         INFO_CONTAINER.classList.replace("aside-closed", "aside");
@@ -33,8 +29,9 @@ INFO_BUTTON.addEventListener("click",()=>{
         INFO_CONTAINER.classList.replace("aside", "aside-closed");
         infoClosed = true;
     } 
-});
+}
 
+INFO_BUTTON.addEventListener("click",toggleInfo);
 ADD_BOOK_BTN.addEventListener("click",()=>{
     modal();
     resetModal();
@@ -46,6 +43,7 @@ CONFIRM_MODAL.addEventListener("click", (e)=>{
         addBook();
         CANCEL_MODAL.click();
         showBooks();
+        updateInformation();
     }      
 });
 
@@ -89,48 +87,17 @@ const resetModal = () =>{
 
 
 const showBooks = () => {
-    LIBRARY.innerHTML = "";
-    for(let [title, description, npages, readed] of bookshelves){
-        const H3_TITLE = document.createElement("h3");
-        H3_TITLE.className = "text-center m-3";
-        H3_TITLE.textContent = title;
-
-        const H4_DESCRIPTION = document.createElement("p");
-        const P_DESCRIPTION = document.createElement("p");
-        H4_DESCRIPTION.textContent = "Description:";
-        P_DESCRIPTION.textContent = description;
-
-        const P_NPAGES = document.createElement("p");
-        P_NPAGES.textContent = `Pages: ${npages}`;
-        P_NPAGES.className = "n-pages";
-
-        const INPUT_DIV = document.createElement("div");
-        INPUT_DIV.className = "form-check form-switch";
-        
-        const LABEL_READED = document.createElement("label");
-        LABEL_READED.className = "form-check-label";
-        LABEL_READED.textContent = "Readed";
-
-        const INPUT_READED = document.createElement("input");
-        INPUT_READED.className = "form-check-input";
-        INPUT_READED.id = "switch";
-        INPUT_READED.type = "checkbox";
-        INPUT_READED.role = "switch";
-        if(readed)INPUT_READED.setAttribute("checked", "true");
-
-        const DIV = document.createElement("div");
-        DIV.className ="book";
-
-        INPUT_DIV.appendChild(LABEL_READED);
-        INPUT_DIV.appendChild(INPUT_READED);
-        DIV.appendChild(H3_TITLE);
-        DIV.appendChild(H4_DESCRIPTION);
-        DIV.appendChild(P_DESCRIPTION);
-        DIV.appendChild(P_NPAGES);
-        DIV.appendChild(INPUT_DIV);
-        LIBRARY.appendChild(DIV);
-    }               
-}
+    LIBRARY.innerHTML = bookshelves.map(([title, description, npages, readed]) => `
+        <div class="book">
+            <h3 class="text-center m-3">${title}</h3>
+            <p>Description: ${description}</p>
+            <p class="n-pages">Pages: ${npages}</p>
+            <div class="form-check form-switch">
+                <label class="form-check-label">Readed</label>
+                <input class="form-check-input input-switch" id="switch" type="checkbox" role="switch" onclick="updateInformation()" ${readed ? 'checked' : ''}>
+            </div>
+        </div>`);
+};
 
 const addBook = () =>{
     let title = BOOK_NAME.value;
@@ -138,17 +105,28 @@ const addBook = () =>{
     let npages = BOOK_N_PAGES.value;
     let readed = BOOK_READED.checked;
     bookshelves.push([title,description,npages,readed]);
-    bookCount++;
-    if(readed)bookReadedCount++;
-    else bookNotReadedCount++;
-    updateInformation();
 }
 
+
 const updateInformation = () =>{
+    const SWITCH = document.querySelectorAll(".input-switch");
+
+    let bookCount = bookshelves.length;
+    let bookReadedCount = 0;
+    let bookNotReadedCount = 0;
+    for(let switches of SWITCH){
+        if(switches.checked) bookReadedCount++;
+        else bookNotReadedCount++;
+    }
+
     TOTAL_BOOKS.textContent = `Total Books: ${bookCount}`;
     TOTAL_BOOKS_READED.textContent = `Books Readed: ${bookReadedCount}`;
     TOTAL_BOOKS_NOT_READED.textContent = `Books not readed: ${bookNotReadedCount}`;
 }
 
-showBooks();
-updateInformation();
+if(bookshelves.length > 0){
+    showBooks();
+    updateInformation();
+}
+
+

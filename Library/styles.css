@@ -29,6 +29,12 @@ body{
     border-top: 25px solid rgb(138, 165, 114);
     box-shadow: 1px 0 5px 1px rgb(187, 187, 187);
     color: rgb(0, 0, 0);
+    transition: transform 0.5s, box-shadow 0.5s;
+}
+
+.book:hover{
+    transform: scale(1.03);
+    box-shadow: 1px 0 5px 1px rgb(124, 124, 124);
 }
 
 .n-pages{
@@ -167,6 +173,16 @@ body{
 }
 .cancel-btn:hover{
     opacity: 1;
+}
+
+.input-switch{
+    margin-top: .35em;
+    filter:grayscale(1);
+    border: 2px solid rgb(181, 181, 181);
+}
+
+.input-switch:active{
+    filter:grayscale(1);
 }
 
 

@@ -28,12 +28,23 @@ body{
     margin: 15px;
     box-shadow: 1px 0 5px 1px rgb(187, 187, 187);
     color: rgb(0, 0, 0);
+    text-wrap: wrap;
+    word-wrap: break-word;
     transition: transform 0.5s, box-shadow 0.5s;
 }
 
 .book:hover{
     transform: scale(1.03);
     box-shadow: 1px 0 5px 1px rgb(124, 124, 124);
+}
+
+.book-title{
+    font-size: 24px;
+}
+
+.book-description{
+    margin-top: -15px;
+    font-size: 15px;
 }
 
 .n-pages{
@@ -191,8 +202,8 @@ body{
     justify-content: center;
     background: none;
     border: none;
-    top: 0.5em;
-    right: 0.75em;
+    top: 0.25em;
+    right: 0.25em;
 }
 
 .book-color, .book-color-settings{
@@ -212,3 +223,4 @@ body{
     background:none ;
     border: none;
 }
+

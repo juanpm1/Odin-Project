@@ -1,6 +1,6 @@
 "use strict";
 
-let bookshelves = [];
+let bookshelves = [["The Fellowship of the Ring","The Lord of the Rings by J.R.R. Tolkien tells the story of the War of the Ring in the fictional world of Middle-earth",432,true,"#a9eb89"],["One Hundred Years of Solitude","One Hundred Years of Solitude is the history of the isolated town of Macondo and of the family who founds it, the Buendías. For years, the town has no contact with the outside world, except for gypsies who occasionally visit, peddling technologies like ice and telescopes.",417,true,"#41c8cf"],["Moby Dick","The story draws from Melville's personal experience as a sailor. The true story of the American whaler the Essex inspired Melville's classic novel. The Essex was attacked and sunk, by a sperm whale in 1820.",378,false,"#fdfcbd"]];
 const STORED_BOOKSHELVES = localStorage.getItem('bookshelves');
 const LIBRARY = document.querySelector(".library");
 const MODAL_ELEMENT = document.querySelector(".modal");
@@ -30,6 +30,9 @@ const DELETE_BOOK = document.querySelector(".delete-book");
 
 
 document.addEventListener("DOMContentLoaded",()=>{
+    if(bookshelves.length > 1){
+        saveToLocalStorage();
+    } 
     if (STORED_BOOKSHELVES) {
         bookshelves = JSON.parse(STORED_BOOKSHELVES);
         showBooks();

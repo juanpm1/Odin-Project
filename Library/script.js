@@ -1,6 +1,6 @@
 "use strict";
 
-let bookshelves = [[2,2,1,false],[2,2,1,true]];
+let bookshelves = [[1,1,2,true,"#ffffff"],[1,1,2,true,"#ffffff"]];
 const LIBRARY = document.querySelector(".library");
 const MODAL_ELEMENT = document.querySelector(".modal");
 const MAIN = document.querySelector(".main");
@@ -11,11 +11,21 @@ const BOOK_NAME = document.querySelector(".book-name");
 const BOOK_DESCRIPTION = document.querySelector(".book-description");
 const BOOK_N_PAGES = document.querySelector(".book-npages");
 const BOOK_READED = document.querySelector(".book-readed");
+const MODAL_SETTINGS = document.querySelector(".modal-settings");
+const BOOK_NAME_SETTINGS = document.querySelector(".book-name-settings");
+const BOOK_DESCRIPTION_SETTINGS = document.querySelector(".book-description-settings");
+const BOOK_N_PAGES_SETTINGS = document.querySelector(".book-npages-settings");
+const BOOK_READED_SETTINGS = document.querySelector(".book-readed-settings");
+const BOOK_COLOR_SETTINGS = document.querySelector(".book-color-settings");
+const CONFIRM_MODAL_SETTINGS = document.querySelector(".add-btn-settings"); 
+const CANCEL_MODAL_SETTINGS = document.querySelector(".cancel-btn-settings");
 const TOTAL_BOOKS = document.querySelector(".total-books");
 const TOTAL_BOOKS_READED = document.querySelector(".books-readed");
 const TOTAL_BOOKS_NOT_READED = document.querySelector(".books-not-readed");
 const INFO_BUTTON = document.querySelector(".info-button");
 const INFO_CONTAINER = document.querySelector(".aside-closed");
+const BOOK_COLOR = document.querySelector(".book-color");
+const DELETE_BOOK = document.querySelector(".delete-book");
 
 let infoClosed = true;
 const toggleInfo = () =>{
@@ -33,13 +43,13 @@ const toggleInfo = () =>{
 
 INFO_BUTTON.addEventListener("click",toggleInfo);
 ADD_BOOK_BTN.addEventListener("click",()=>{
-    modal();
     resetModal();
+    modal();
 })
 
 CONFIRM_MODAL.addEventListener("click", (e)=>{
     e.preventDefault();
-    if(checkModal()){
+    if(checkModal(BOOK_NAME, BOOK_DESCRIPTION)){
         addBook();
         CANCEL_MODAL.click();
         showBooks();
@@ -59,8 +69,20 @@ const modal = () =>{
     });
 }
 
-const checkModal = () => {
-    const INPUTS = [BOOK_NAME, BOOK_DESCRIPTION];
+const modalSettings = () =>{
+    MODAL_SETTINGS.style.display = "block";
+    MAIN.classList.add("main-blur");
+    ADD_BOOK_BTN.setAttribute("disabled", "true");
+
+    CANCEL_MODAL_SETTINGS.addEventListener("click",()=>{
+        MODAL_SETTINGS.style.display = "none";
+        MAIN.classList.remove("main-blur");
+        ADD_BOOK_BTN.removeAttribute("disabled");
+    });
+}
+
+const checkModal = (name, description) => {
+    const INPUTS = [name, description];
     for(const INPUT of INPUTS){
         if(INPUT.value.trim() === ""){
             errorModal(INPUT);
@@ -74,7 +96,7 @@ const checkModal = () => {
 const errorModal = element =>{
     element.style.borderBottom = "1px solid rgb(224, 80, 80)"
     setTimeout(()=>{    
-        element.style.borderBottom = "1px solid rgb(128, 128, 128)"
+        element.style.borderBottom = "3px solid rgb(255, 255, 255)"
     },2000);
 }
 
@@ -83,28 +105,37 @@ const resetModal = () =>{
     BOOK_DESCRIPTION.value = null;
     BOOK_READED.checked = false;
     BOOK_N_PAGES.value = 1;
+    BOOK_COLOR.value = "#ffffff";
 }
 
-
 const showBooks = () => {
-    LIBRARY.innerHTML = bookshelves.map(([title, description, npages, readed]) => `
-        <div class="book">
+    LIBRARY.innerHTML = bookshelves.map(([title, description, npages, readed, border], index) => `
+        <div class="book" style="border-top:25px solid ${border}">
+            <button class="settings-book" onclick="settings(${index})">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                </svg>
+            </button>
             <h3 class="text-center m-3">${title}</h3>
-            <p>Description: ${description}</p>
+            <p>Description:</p>
+            <p>${description}</p>
             <p class="n-pages">Pages: ${npages}</p>
             <div class="form-check form-switch">
                 <label class="form-check-label">Readed</label>
                 <input class="form-check-input input-switch" id="switch" type="checkbox" role="switch" onclick="updateInformation()" ${readed ? 'checked' : ''}>
             </div>
-        </div>`);
+        </div>`
+        );
 };
 
-const addBook = () =>{
+const addBook = ()=>{
     let title = BOOK_NAME.value;
     let description = BOOK_DESCRIPTION.value;
     let npages = BOOK_N_PAGES.value;
     let readed = BOOK_READED.checked;
-    bookshelves.push([title,description,npages,readed]);
+    let borderColor = BOOK_COLOR.value;
+    bookshelves.push([title,description,npages,readed,borderColor]);
 }
 
 
@@ -130,3 +161,54 @@ if(bookshelves.length > 0){
 }
 
 
+let currentIndex;
+const settings = (index) => {
+    modalSettings();
+
+    currentIndex = index;
+
+    let bookToEdit = bookshelves[index];
+    let bookTitle = bookToEdit[0];
+    let bookDescription = bookToEdit[1];
+    let bookNPages = bookToEdit[2];
+    let bookReaded = bookToEdit[3];
+    let bookColor = bookToEdit[4];
+
+    BOOK_NAME_SETTINGS.value = bookTitle;
+    BOOK_DESCRIPTION_SETTINGS.value = bookDescription;
+    BOOK_READED_SETTINGS.checked = bookReaded;
+    BOOK_N_PAGES_SETTINGS.value = bookNPages;
+    BOOK_COLOR_SETTINGS.value = bookColor;
+
+    const confirmSettingsHandler = (e) => {
+        e.preventDefault();
+        if (checkModal(BOOK_NAME_SETTINGS, BOOK_DESCRIPTION_SETTINGS)) {
+            bookshelves[currentIndex] = [
+                BOOK_NAME_SETTINGS.value,
+                BOOK_DESCRIPTION_SETTINGS.value,
+                BOOK_N_PAGES_SETTINGS.value,
+                BOOK_READED_SETTINGS.checked,
+                BOOK_COLOR_SETTINGS.value
+            ];
+            CANCEL_MODAL_SETTINGS.click();
+            showBooks();
+            updateInformation();
+        }
+    };
+
+    const deleteBookHandler = (e) => {
+        e.preventDefault();
+        bookshelves.splice(currentIndex, 1);
+        showBooks();
+        CANCEL_MODAL_SETTINGS.click();
+    };
+
+    const closeModalHandler = () => {
+        CONFIRM_MODAL_SETTINGS.removeEventListener("click", confirmSettingsHandler);
+        DELETE_BOOK.removeEventListener("click", deleteBookHandler);
+    };
+
+    CONFIRM_MODAL_SETTINGS.addEventListener("click", confirmSettingsHandler);
+    DELETE_BOOK.addEventListener("click", deleteBookHandler);
+    CANCEL_MODAL_SETTINGS.addEventListener("click", closeModalHandler);
+};

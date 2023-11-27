@@ -1,0 +1,71 @@
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+}
+
+.game-board{
+    margin: 10em auto;
+    width: 60em;
+    height: 30em;
+}
+
+.casilla{
+    width: 20em;
+    height: 10em;
+}
+
+.first-square{
+    border: 0;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.second-square{
+    border: 0;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.third-square{
+    border: 0;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.fourth-square{
+    border: 0;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.fifth-square{
+    border: 2px solid black;
+}
+
+.sixth-square{
+    border: 0;
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.seventh-square{
+    border: 0;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.eighth-square{
+    border: 0;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+}
+
+.nineth-square{
+    border: 0;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+}

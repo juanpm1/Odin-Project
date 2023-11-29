@@ -1,71 +1,89 @@
-.wrapper{
-    width: 100vw;
-    height: 100vh;
+:root{
+    --board-color: rgb(21, 23, 24);
+    --board-width: 4px;
+    --board-border-radius: 10px;
+}
+
+body{
+    background: rgb(194, 229, 255);
 }
 
 .game-board{
-    margin: 10em auto;
-    width: 60em;
+    position: absolute;
+    width: 50em;
     height: 30em;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 .casilla{
-    width: 20em;
-    height: 10em;
+    font-size: 100px;
 }
 
 .first-square{
     border: 0;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
+    border-right: var(--board-width) solid var(--board-color);
+    border-bottom: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
 
 .second-square{
     border: 0;
-    border-right: 2px solid black;
-    border-left: 2px solid black;
-    border-bottom: 2px solid black;
+    border-right: var(--board-width) solid var(--board-color);
+    border-left: var(--board-width) solid var(--board-color);
+    border-bottom: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
 
 .third-square{
     border: 0;
-    border-left: 2px solid black;
-    border-bottom: 2px solid black;
+    border-left: var(--board-width) solid var(--board-color);
+    border-bottom: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
 
 .fourth-square{
     border: 0;
-    border-top: 2px solid black;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
+    border-top: var(--board-width) solid var(--board-color);
+    border-right: var(--board-width) solid var(--board-color);
+    border-bottom: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
 
 .fifth-square{
-    border: 2px solid black;
+    border: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
 
 .sixth-square{
     border: 0;
-    border-left: 2px solid black;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
+    border-left: var(--board-width) solid var(--board-color);
+    border-top: var(--board-width) solid var(--board-color);
+    border-bottom: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
 
 .seventh-square{
     border: 0;
-    border-top: 2px solid black;
-    border-right: 2px solid black;
+    border-top: var(--board-width) solid var(--board-color);
+    border-right: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
 
 .eighth-square{
     border: 0;
-    border-top: 2px solid black;
-    border-right: 2px solid black;
-    border-left: 2px solid black;
+    border-top: var(--board-width) solid var(--board-color);
+    border-right: var(--board-width) solid var(--board-color);
+    border-left: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
 
 .nineth-square{
     border: 0;
-    border-top: 2px solid black;
-    border-left: 2px solid black;
+    border-top: var(--board-width) solid var(--board-color);
+    border-left: var(--board-width) solid var(--board-color);
+    border-radius: var(--board-border-radius);
 }
